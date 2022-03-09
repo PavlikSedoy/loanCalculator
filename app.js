@@ -26,8 +26,41 @@ const calculateResults = e => {
         totalPayment.value = (monthly * calculatedPayments).toFixed(2)
         totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2)
     } else {
-        console.warning('Plese check your numbers')
+        // console.warning('Plese check your numbers')
+        showError('Please check your numbers')
     }
 
     e.preventDefault()
+}
+
+/**
+ * Show error
+ * @param {String} error Error message
+ */
+const showError = error => {
+    // Create div
+    const errorDiv = document.createElement('div')
+
+    // Get elements
+    const card = document.querySelector('.card'),
+        heading = document.querySelector('.heading')
+
+    // Add class
+    errorDiv.className = 'alert alert-danger'
+
+    // Create text node and append to div
+    errorDiv.appendChild(document.createTextNode(error))
+
+    // Insert error above heading
+    card.insertBefore(errorDiv, heading)
+
+    // Clear error after 3 seconds
+    setTimeout(clearError, 3000)
+}
+
+/**
+ * Clear error
+ */
+const clearError = () => {
+    document.querySelector('.alert').remove()
 }
