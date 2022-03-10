@@ -1,4 +1,14 @@
-document.getElementById('loan-form').addEventListener('submit', e => calculateResults(e))
+document.getElementById('loan-form').addEventListener('submit', e => {
+    // Hide results
+    document.getElementById('results').style.display = 'none'
+
+    // Show loader
+    document.getElementById('loading').style.display = 'block'
+
+    setTimeout(e => calculateResults(e), 2000)
+
+    e.preventDefault()
+})
 
 /**
  * Calculate results
@@ -25,9 +35,16 @@ const calculateResults = e => {
         monthlyPayment.value = monthly.toFixed(2)
         totalPayment.value = (monthly * calculatedPayments).toFixed(2)
         totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2)
+
+        // Show results
+        document.getElementById('results').style.display = 'block'
+        // Hide loader
+        document.getElementById('loading').style.display = 'none'
     } else {
         // console.warning('Plese check your numbers')
         showError('Please check your numbers')
+        // Hide loader
+        document.getElementById('loading').style.display = 'none'
     }
 
     e.preventDefault()
